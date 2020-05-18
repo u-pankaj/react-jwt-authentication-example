@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "repository": {
         "type": "git",
-        "url": "https://github.com/cornflourblue/react-jwt-authentication-example.git"
+        "url": ""
     },
     "license": "MIT",
     "scripts": {
@@ -12,10 +12,13 @@
     "dependencies": {
         "formik": "^1.5.2",
         "history": "^4.9.0",
+        "r": "0.0.5",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "react-router-dom": "^5.0.0",
+        "react-table-6": "6.11.0",
         "rxjs": "^6.3.3",
+        "table": "5.4.6",
         "yup": "^0.27.0"
     },
     "devDependencies": {

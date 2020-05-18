@@ -1,8 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 
 import config from 'config';
-import { handleResponse } from '@/_helpers';
-
 const currentUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('currentUser')));
 
 export const authenticationService = {
@@ -12,20 +10,28 @@ export const authenticationService = {
     get currentUserValue () { return currentUserSubject.value }
 };
 
-function login(username, password) {
+function login(accountId, pswd) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ accountId, pswd })
     };
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
-        .then(handleResponse)
+    return fetch(`${config.apertumnUrl}/user/login`, requestOptions)
+    .then(response =>{
+        return response.text().then(text => {
+            const data = text && JSON.parse(text);
+            if(!data.token)
+            {
+            return Promise.reject("Invalid Credentials");
+            }
+            return data;
+        });
+    } )
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(user));
             currentUserSubject.next(user);
-
             return user;
         });
 }

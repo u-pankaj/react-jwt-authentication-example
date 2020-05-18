@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { userService, authenticationService } from '@/_services';
+
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -15,24 +15,73 @@ class HomePage extends React.Component {
     componentDidMount() {
         userService.getAll().then(users => this.setState({ users }));
     }
+    
+
+    
 
     render() {
         const { currentUser, users } = this.state;
+        const data = [{  
+            name: 'Ayaan',  
+            age: 26  
+            },{  
+            name: 'Ahana',  
+            age: 22  
+            },{  
+            name: 'Peter',  
+            age: 40   
+            },{  
+            name: 'Virat',  
+            age: 30  
+            },{  
+            name: 'Rohit',  
+            age: 32  
+            },{  
+            name: 'Dhoni',  
+            age: 37  
+            }] ; 
+            const columns = [{  
+                Header: 'Name',  
+                accessor: 'name'  
+               },{  
+               Header: 'Age',  
+               accessor: 'age'  
+               }] ; 
         return (
             <div>
-                <h1>Hi {currentUser.firstName}!</h1>
-                <p>You're logged in with React & JWT!!</p>
-                <h3>Users from secure api end point:</h3>
+            <div>
                 {users &&
-                    <ul>
+                    <table>
                         {users.map(user =>
-                            <li key={user.id}>{user.firstName} {user.lastName}</li>
+                            <tr key={user.accountId}>{user.firstName} {user.lastName}</tr>
+
+<tr key= {user.accountId}> 
+    <td></td> 
+    <td ></td> 
+    <td></td> 
+    </tr>
+
                         )}
-                    </ul>
+                    </table>
                 }
+            </div>
+            <div>
+
+{ users && 
+    <ul>
+    {
+        users.filter(user=>user.age<25 && user.lastName.includes("C")).map(filteredUser=>(
+            <li key= {filteredUser.accountId}> {filteredUser.firstName} {filteredUser.lastName} </li>
+        ))
+    }
+    </ul>
+}
+             </div>
+
             </div>
         );
     }
+  
 }
 
 export { HomePage };
