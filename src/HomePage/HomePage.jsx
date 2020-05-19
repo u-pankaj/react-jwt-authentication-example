@@ -35,7 +35,7 @@ class HomePage extends React.Component {
      renderTableHeader(users) {
         let header = Object.keys(users[0])
         return header.map((key, index) => {
-           return <th key={index}>{key.toUpperCase()}</th>
+           return <th key={index}>{key}</th>
         })
      }
   
