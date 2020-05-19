@@ -1,5 +1,6 @@
 import React from 'react';
 import { userService, authenticationService } from '@/_services';
+//import '@/HomePage/HomePage.css';
 
 
 class HomePage extends React.Component {
@@ -17,55 +18,72 @@ class HomePage extends React.Component {
     }
     
 
-    
+    renderTableData(users) {
+        return users.map((user, index) => {
+           const { accountId, firstName, lastName, age } = user //destructuring
+           return (
+              <tr key={accountId}>
+                 <td>{accountId}</td>
+                 <td>{age}</td>
+                 <td>{firstName}</td>
+                 <td>{lastName}</td>
+              </tr>
+           )
+        })
+     }
 
-    render() {
+     renderTableHeader(users) {
+        let header = Object.keys(users[0])
+        return header.map((key, index) => {
+           return <th key={index}>{key.toUpperCase()}</th>
+        })
+     }
+  
+
+
+     render() {
+
+
         const { currentUser, users } = this.state;
-        const data = [{  
-            name: 'Ayaan',  
-            age: 26  
-            },{  
-            name: 'Ahana',  
-            age: 22  
-            },{  
-            name: 'Peter',  
-            age: 40   
-            },{  
-            name: 'Virat',  
-            age: 30  
-            },{  
-            name: 'Rohit',  
-            age: 32  
-            },{  
-            name: 'Dhoni',  
-            age: 37  
-            }] ; 
-            const columns = [{  
-                Header: 'Name',  
-                accessor: 'name'  
-               },{  
-               Header: 'Age',  
-               accessor: 'age'  
-               }] ; 
+        return (
+           <div>
+               { users &&
+              <table id='users'>
+                 <tbody>
+                 <tr>{this.renderTableHeader(users)}</tr>
+                    {this.renderTableData(users)}
+                 </tbody>
+              </table>
+               }
+           </div>
+        )
+     }
+
+
+ /*   render() {
+        const { currentUser, users } = this.state;
         return (
             <div>
-            <div>
-                {users &&
-                    <table>
-                        {users.map(user =>
-                            <tr key={user.accountId}>{user.firstName} {user.lastName}</tr>
 
-<tr key= {user.accountId}> 
-    <td></td> 
-    <td ></td> 
-    <td></td> 
-    </tr>
 
-                        )}
-                    </table>
-                }
-            </div>
-            <div>
+
+
+<div>
+    { users && 
+            <h1 id='title'>React Dynamic Table</h1>
+            <table id='students'>
+               <tbody>
+                  {this.renderTableData()}
+               </tbody>
+            </table>
+    }
+ </div>
+
+
+
+
+
+<div>
 
 { users && 
     <ul>
@@ -80,7 +98,7 @@ class HomePage extends React.Component {
 
             </div>
         );
-    }
+  } */
   
 }
 
